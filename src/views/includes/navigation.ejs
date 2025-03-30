@@ -1,0 +1,16 @@
+<header class="header">
+  <div class="logo">ShopZone</div>
+  <ul class="nav-links">
+    <li><a href="/" class="<%= url === '/'? 'active' : '' %>">Products</a></li>
+    <li>
+      <a
+        href="/new-product"
+        class="<%= url === '/new-product'? 'active' : '' %>"
+        >Add Product</a
+      >
+    </li>
+    <li>
+      <a href="/cart" class="<%= url === '/cart'? 'active' : '' %>">Cart</a>
+    </li>
+  </ul>
+</header>

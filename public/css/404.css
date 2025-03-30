@@ -1,0 +1,50 @@
+.not-found-container {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: auto;
+}
+
+.not-found-container h1 {
+  font-size: 80px;
+  color: #2c3e50;
+}
+
+.not-found-container h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.not-found-container p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.home-button {
+  background-color: #27ae60;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.3s;
+}
+
+.home-button:hover {
+  background-color: #219150;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .not-found-container h1 {
+    font-size: 60px;
+  }
+  .not-found-container h2 {
+    font-size: 20px;
+  }
+}
