@@ -1,8 +1,8 @@
-<%- include('./includes/start.ejs') %>
-<link rel="stylesheet" href="/css/shop.css">
+<%- include('../includes/start.ejs') %>
+<link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
-    <%- include('./includes/navigation.ejs') %>
+    <%- include('../includes/navigation.ejs') %>
     <main>
           <div class="container">
             <h2>All Products</h2>
@@ -22,15 +22,17 @@
                     </p>
                     <p class="product-price">$<%= product.price %></p>
                     <div class="buttons">
-                      <a href="">
-                        <button class="btn add-to-cart">
-                          Add to Cart
+                      <a href="/edit-product/<%= product.id %>">
+                        <button class="btn edit">
+                          Edit
                         </button>
                       </a>
-                      <a href="/product/<%= product.id %>">
-                        <button class="btn details">
-                          Details
-                        </button>
+                        <form action="/delete-product/<%= product.id %>" method="POST">
+                          <button class="btn delete">
+                            Delete
+                          </button>
+                        </form>
+                        
                       </a>
                     </div>
                   </div>
@@ -44,4 +46,4 @@
           </div>
       </main>
 
-    <%- include('./includes/end.ejs')  %>
+    <%- include('../includes/end.ejs')  %>
