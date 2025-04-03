@@ -5,31 +5,32 @@ exports.getProducts = (req, res, next) => {
     res.render("shop/product-list", {
       pageTitle: "All products",
       products,
-      url: "/",
+      url: "/products",
     });
   });
 };
 
 exports.getProductDetails = (req, res, next) => {
   const id = req.params.id;
-  Product.fetchAll((products) => {
-    const product = products.find((product) => id === product.id);
-
-    if (!product) {
-      return next();
-    }
-
+  Product.findById(id, (product) => {
     res.render("shop/product-details", {
       pageTitle: "Product details",
       product,
-      url: "/product/:" + id,
+      url: "",
     });
   });
 };
 
 exports.getCartItems = (req, res, next) => {
   res.render("shop/cart", {
-    pageTitle: "Cart",
+    pageTitle: "Your Cart",
+    products: [1, 2, 3],
+    url: "/cart",
+  });
+};
+exports.getOrders = (req, res, next) => {
+  res.render("shop/orders", {
+    pageTitle: "Your Orders",
     products: [1, 2, 3],
     url: "/cart",
   });

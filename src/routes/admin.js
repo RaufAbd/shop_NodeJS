@@ -3,11 +3,12 @@ const express = require("express");
 const router = express.Router();
 
 const adminController = require("./../controllers/admin");
+const API = "/admin/products";
 
-router.get("/admin", adminController.allProducts);
-router.get("/add-product", adminController.addProduct);
-router.post("/save-product", adminController.saveProduct);
-router.post("/delete-product/:id", adminController.deleteProduct);
-router.get("/edit-product/:id", adminController.editProduct);
+router.get(`${API}`, adminController.allProducts);
+router.get(`${API}/add`, adminController.addProduct);
+router.post(`${API}/save`, adminController.saveProduct);
+router.post(`${API}/delete:id`, adminController.deleteProduct);
+router.get(`${API}/edit/:id`, adminController.editProduct);
 
 module.exports = router;

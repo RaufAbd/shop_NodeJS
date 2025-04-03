@@ -5,7 +5,7 @@
     <%- include('../includes/navigation.ejs') %>
     <main>
           <div class="container">
-            <h2>All Products</h2>
+            <h2>Admin Products</h2>
             <% if(products.length) { %>
             <ul class="products-grid">
               <% for(let product of products){ %>
@@ -22,12 +22,12 @@
                     </p>
                     <p class="product-price">$<%= product.price %></p>
                     <div class="buttons">
-                      <a href="/edit-product/<%= product.id %>">
+                      <a href="/admin/products/edit/<%= product.id %>">
                         <button class="btn edit">
                           Edit
                         </button>
                       </a>
-                        <form action="/delete-product/<%= product.id %>" method="POST">
+                        <form action="/admin/products/delete/<%= product.id %>" method="POST">
                           <button class="btn delete">
                             Delete
                           </button>

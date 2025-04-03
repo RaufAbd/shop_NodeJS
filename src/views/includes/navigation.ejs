@@ -2,20 +2,31 @@
   <div class="logo">ShopZone</div>
   <ul class="nav-links">
     <li>
-      <a href="/admin" class="<%= url === '/admin'? 'active' : '' %>"
-        >All Products</a
+      <a
+        href="/admin/products"
+        class="<%= url === '/admin/products'? 'active' : '' %>"
+        >Admin Products</a
       >
     </li>
     <li>
       <a
-        href="/add-product"
-        class="<%= url === '/add-product'? 'active' : '' %>"
+        href="/admin/products/add"
+        class="<%= url === '/admin/products/add'? 'active' : '' %>"
         >Add Product</a
       >
     </li>
-    <li><a href="/" class="<%= url === '/'? 'active' : '' %>">Products</a></li>
+    <li>
+      <a href="/products" class="<%= url === '/products'? 'active' : '' %>"
+        >Products</a
+      >
+    </li>
     <li>
       <a href="/cart" class="<%= url === '/cart'? 'active' : '' %>">Cart</a>
+    </li>
+    <li>
+      <a href="/orders" class="<%= url === '/orders'? 'active' : '' %>"
+        >Orders</a
+      >
     </li>
   </ul>
 </header>

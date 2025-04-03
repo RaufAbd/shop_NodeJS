@@ -2,10 +2,11 @@ const Product = require("../models/product");
 
 exports.allProducts = (req, res, next) => {
   Product.fetchAll((products) => {
+    console.log("asd", products);
     res.render("admin/products", {
-      pageTitle: "All products",
+      pageTitle: "Admin products",
       products,
-      url: "/admin",
+      url: "/admin/products",
     });
   });
 };
@@ -13,7 +14,7 @@ exports.allProducts = (req, res, next) => {
 exports.addProduct = (req, res, next) => {
   res.render("admin/add-product", {
     pageTitle: "Add product",
-    url: "/add-product",
+    url: "/admin/products/add",
   });
 };
 exports.editProduct = (req, res, next) => {
@@ -28,7 +29,7 @@ exports.editProduct = (req, res, next) => {
     res.render("admin/edit-product", {
       pageTitle: "Edit product",
       product,
-      url: "/edit-product/:" + id,
+      url: "/admin/products/edit/:" + id,
     });
   });
 };
@@ -38,12 +39,12 @@ exports.saveProduct = (req, res, next) => {
   const product = new Product(title, description, image, price);
   product.save();
 
-  res.redirect("/");
+  res.redirect("/products");
 };
 
 exports.deleteProduct = (req, res, next) => {
   const id = req.params.id;
   Product.delete(id);
 
-  res.redirect("/");
+  res.redirect("/products");
 };
