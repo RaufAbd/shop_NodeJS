@@ -2,6 +2,8 @@ const fs = require("fs");
 const path = require("path");
 const Cart = require("./cart");
 
+const db = require("../utils/database");
+
 const filePath = path.join(__dirname, "../data/products.json");
 
 const getProductsFromFile = (cb) => {
@@ -20,38 +22,51 @@ class Product {
     this.id = id;
   }
 
-  // static products = require("../data/products.json");
-
-  static fetchAll(cb) {
-    getProductsFromFile(cb);
+  static fetchAll() {
+    return db
+      .execute("SELECT * FROM products")
+      .then(([products]) => products)
+      .catch((err) => {
+        console.log("products error", err);
+      });
   }
 
-  static findById(id, cb) {
-    getProductsFromFile((products) => {
-      const product = products.find((p) => p.id === id);
-      cb(product);
-    });
+  static findById(id) {
+    return db
+      .execute("SELECT * FROM products WHERE products.id = ?", [id])
+      .then(([[product]]) => product)
+      .catch((err) => console.log("finding product error", err));
+    // getProductsFromFile((products) => {
+    //   const product = products.find((p) => p.id === id);
+    //   cb(product);
+    // });
   }
 
   save() {
-    getProductsFromFile((products) => {
-      if (this.id) {
-        const index = products.findIndex((prod) => prod.id === this.id);
-        const updatedProducts = [...products];
+    return db
+      .execute(
+        "INSERT INTO products (title, price, description, image) VALUES (?,?,?,?)",
+        [this.title, this.price, this.description, this.image]
+      )
+      .catch((err) => console.log("save product error", err));
+    // getProductsFromFile((products) => {
+    //   if (this.id) {
+    //     const index = products.findIndex((prod) => prod.id === this.id);
+    //     const updatedProducts = [...products];
 
-        updatedProducts[index] = this;
-        console.log("aloi", this.id);
-        fs.writeFile(filePath, JSON.stringify(updatedProducts), (err) => {
-          console.log(err);
-        });
-      } else {
-        this.id = Math.random().toString(36).substring(2);
-        products.push(this);
-        fs.writeFile(filePath, JSON.stringify(products), (err) => {
-          console.log(err);
-        });
-      }
-    });
+    //     updatedProducts[index] = this;
+    //     console.log("aloi", this.id);
+    //     fs.writeFile(filePath, JSON.stringify(updatedProducts), (err) => {
+    //       console.log(err);
+    //     });
+    //   } else {
+    //     this.id = Math.random().toString(36).substring(2);
+    //     products.push(this);
+    //     fs.writeFile(filePath, JSON.stringify(products), (err) => {
+    //       console.log(err);
+    //     });
+    //   }
+    // });
   }
 
   static delete(id) {

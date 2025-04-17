@@ -1,7 +1,7 @@
 const Product = require("../models/product");
 
 exports.allProducts = (req, res, next) => {
-  Product.fetchAll((products) => {
+  Product.fetchAll().then((products) => {
     res.render("admin/products", {
       pageTitle: "Admin products",
       products,
@@ -19,7 +19,7 @@ exports.addProduct = (req, res, next) => {
 
 exports.editProduct = (req, res, next) => {
   const id = req.params.id;
-  Product.findById(id, (product) => {
+  Product.findById(id).then((product) => {
     res.render("admin/edit-product", {
       pageTitle: "Edit product",
       product,
@@ -31,9 +31,9 @@ exports.editProduct = (req, res, next) => {
 exports.saveProduct = (req, res, next) => {
   const { id, title, description, image, price } = req.body;
   const product = new Product(title, description, image, price, id);
-  product.save();
-
-  res.redirect("/admin/products");
+  product.save().then(() => {
+    res.redirect("/admin/products");
+  });
 };
 
 exports.deleteProduct = (req, res, next) => {
