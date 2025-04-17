@@ -22,11 +22,8 @@
                     </p>
                     <p class="product-price">$<%= product.price %></p>
                     <div class="buttons">
-                      <a href="">
-                        <button class="btn add-to-cart">
-                          Add to Cart
-                        </button>
-                      </a>
+                  <%- include('../includes/add-to-cart.ejs', {product})  %>
+                    
                       <a href="/products/<%= product.id %>">
                         <button class="btn details">
                           Details

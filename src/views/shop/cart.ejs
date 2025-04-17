@@ -13,29 +13,48 @@
                     <th>Title</th>
                     <th>Price</th>
                     <th>Quantity</th>
-                    <th>Remove</th>
+                    <th>Add/Remove</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
+                <% for(let product of cart.products){ %>
                 <tr>
-                    <td><img src="https://via.placeholder.com/60" alt="Product"></td>
-                    <td>Product 1</td>
-                    <td>$29.99</td>
-                    <td>1</td>
-                    <td><button class="remove-btn">X</button></td>
+                    <td><img src="<%= product.image %>" alt="<%= product.title %>" width="100" height="auto"></td>
+                    <td><%= product.title %></td>
+                    <td>$<%= product.price %></td>
+                    <td><%= product.qty %></td>
+                    <td>
+                        <div style="display: flex; gap:1rem; justify-content: center;align-items: center;">
+                            <form action="/cart/add" method="POST">
+                                <input type="hidden" name="itemId" value="<%= product.id %>" />
+                                <button class="add btn" type="submit">+</button>
+                            </form>
+                            <form action="/cart/remove" method="POST">
+                                <input type="hidden" name="itemId" value="<%= product.id %>" />
+                                <% if(product.qty == 1){ %>
+                                    <button class="remove btn" type="submit" disabled>-</button>
+                                    <% } else { %>
+                                         <button class="remove btn" type="submit">-</button>
+                                        <% } %>
+                               
+                            </form>
+                        </div>
+                    <td>
+                        <form action="/cart/delete" method="POST">
+                            <input type="hidden" name="itemId" value="<%= product.id %>" />
+                            <button class="delete btn" type="submit">x</button>
+                        </form>
+                    </td>
                 </tr>
-                <tr>
-                    <td><img src="https://via.placeholder.com/60" alt="Product"></td>
-                    <td>Product 2</td>
-                    <td>$19.99</td>
-                    <td>2</td>
-                    <td><button class="remove-btn">X</button></td>
-                </tr>
+
+        <% } %>
+                
             </tbody>
         </table>
 
         <div class="checkout-container">
-            <p class="total-price">Total: $69.97</p>
+            <p class="total-price">Total: $<%= cart.totalPrice %></p>
             <button class="checkout-btn">Proceed to Checkout</button>
         </div>
     </div>
