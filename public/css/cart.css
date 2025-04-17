@@ -35,8 +35,7 @@
   border-radius: 5px;
 }
 
-.remove-btn {
-  background-color: #e74c3c;
+.btn {
   color: white;
   border: none;
   padding: 6px 10px;
@@ -45,7 +44,29 @@
   transition: background 0.3s;
 }
 
-.remove-btn:hover {
+.add {
+  background-color: #27ae60;
+}
+
+.add:hover {
+  background-color: #219150;
+}
+.remove {
+  background-color: #858282;
+}
+.remove:disabled {
+  opacity: 0.5;
+}
+
+.remove:hover(:not:disabled) {
+  background-color: #575656;
+}
+
+.delete {
+  background-color: #e74c3c;
+}
+
+.delete:hover {
   background-color: #c0392b;
 }
 
