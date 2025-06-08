@@ -1,0 +1,113 @@
+.orders-container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.orders-container h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.orders-container h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Orders Table */
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.orders-table th {
+  background: #2c3e50;
+  color: white;
+}
+
+/* Status Labels */
+.status-label {
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+  font-size: 14px;
+  display: inline-block;
+  min-width: 80px;
+}
+
+.status-label.pending {
+  background-color: orange;
+}
+
+.status-label.shipped {
+  background-color: dodgerblue;
+}
+
+.status-label.delivered {
+  background-color: green;
+}
+
+.status-label.cancelled {
+  background-color: crimson;
+}
+
+/* Buttons */
+.btn {
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background 0.3s;
+  text-decoration: none;
+}
+
+.btn.view {
+  background-color: #3498db;
+}
+.btn.view:hover {
+  background-color: #2c80b4;
+}
+
+.btn.add {
+  background-color: #27ae60;
+}
+.btn.add:hover {
+  background-color: #219150;
+}
+
+.btn.delete {
+  background-color: #e74c3c;
+}
+.btn.delete:hover {
+  background-color: #c0392b;
+}
+
+/* Inline form for delete button */
+.inline-form {
+  display: inline;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .orders-container {
+    padding: 15px;
+  }
+
+  .orders-table th,
+  .orders-table td {
+    font-size: 14px;
+    padding: 8px;
+  }
+}

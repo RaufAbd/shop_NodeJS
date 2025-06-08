@@ -1,0 +1,67 @@
+<%- include('../includes/start.ejs') %>
+<link rel="stylesheet" href="/css/checkout.css">
+</head>
+<body>
+    <%- include('../includes/navigation.ejs') %>
+    <main>
+
+<div class="checkout-container">
+    <h2>Checkout</h2>
+    <h3>Complete your purchase</h3>
+
+    <form action="/create-order" method="POST" class="checkout-form">
+      <!-- Billing Info -->
+      <div class="form-section">
+        <h4>Billing Information</h4>
+        <label>
+          Full Name:
+          <input type="text" name="fullName" required value="<%= userInfo.name %>"/>
+        </label>
+        <label>
+          Email:
+          <input type="email" name="email" required value="<%= userInfo.email %>"/>
+        </label>
+        <label>
+          Address:
+          <input type="text" name="address" required />
+        </label>
+        <label>
+          City:
+          <input type="text" name="city" required />
+        </label>
+        <label>
+          Postal Code:
+          <input type="text" name="postalCode" required />
+        </label>
+      </div>
+
+      <!-- Payment Info -->
+      <div class="form-section">
+        <h4>Payment Information</h4>
+        <label>
+          Card Number:
+          <input type="text" name="cardNumber" required />
+        </label>
+        <label>
+          Expiry Date:
+          <input type="text" name="expiryDate" placeholder="MM/YY" required />
+        </label>
+        <label>
+          CVV:
+          <input type="text" name="cvv" required />
+        </label>
+      </div>
+
+      <!-- Summary -->
+      <div class="checkout-summary">
+        <span class="total-label">Total:</span>
+        <span class="total-amount">$<%= 'total.toFixed(2)' %></span>
+      </div>
+
+      <button type="submit" class="checkout-btn">Place Order</button>
+    </form>
+  </div>
+
+</main>
+
+<%- include('../includes/end.ejs')  %>

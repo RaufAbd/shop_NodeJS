@@ -11,6 +11,9 @@
   text-align: center;
   margin-bottom: 20px;
 }
+.cart-container h3 {
+  text-align: center;
+}
 
 /* Cart Table */
 .cart-table {
