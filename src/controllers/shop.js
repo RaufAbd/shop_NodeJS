@@ -2,7 +2,7 @@ const Product = require("../models/product");
 const Cart = require("../models/cart");
 
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll().then((products) => {
+  Product.findAll().then((products) => {
     res.render("shop/product-list", {
       pageTitle: "All products",
       products,
@@ -13,7 +13,7 @@ exports.getProducts = (req, res, next) => {
 
 exports.getProductDetails = (req, res, next) => {
   const id = req.params.id;
-  Product.findById(id).then((product) => {
+  Product.findAll({ where: { id } }).then(([product]) => {
     res.render("shop/product-details", {
       pageTitle: "Product details",
       product,
