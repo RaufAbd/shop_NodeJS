@@ -22,12 +22,12 @@
                     </p>
                     <p class="product-price">$<%= product.price %></p>
                     <div class="buttons">
-                      <a href="/admin/products/edit/<%= product.id %>">
+                      <a href="/admin/products/edit/<%= product._id %>">
                         <button class="btn edit">
                           Edit
                         </button>
                       </a>
-                        <form action="/admin/products/delete/<%= product.id %>" method="POST">
+                        <form action="/admin/products/delete/<%= product._id %>" method="POST">
                           <button class="btn delete">
                             Delete
                           </button>

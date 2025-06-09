@@ -15,20 +15,16 @@
               <thead>
                 <tr>
                   <th>#ID</th>
-                  <th>Date</th>
-                  <th>Total</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 <% for(let order of orders){ %>
                   <tr>
-                    <td><%= order.id %></td>
-                    <td><%= order.createdAt.getDate() + '-' + (order.createdAt.getMonth() + 1) + '-' + order.createdAt.getFullYear() %></td>
-                    <td>$<%= 'order.total.toFixed(2)' %></td>
+                    <td><%= order._id %></td>
                   
                     <td>
-                      <a href="/orders/<%= 'order.id' %>" class="btn view">View</a>
+                      <a href="/orders/<%= 'order._id' %>" class="btn view">View</a>
                       <!-- <a href="/orders/<%= 'order.id' %>/edit" class="btn add">Edit</a>
                       <form action="/orders/<%= 'order.id' %>?_method=DELETE" method="POST" class="inline-form">
                         <button type="submit" class="btn delete">Cancel</button>
