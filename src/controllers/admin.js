@@ -1,7 +1,7 @@
 const Product = require("../models/product");
 
 exports.allProducts = (req, res, next) => {
-  Product.fetchAll().then((products) => {
+  Product.find().then((products) => {
     res.render("admin/products", {
       pageTitle: "Admin products",
       products,
@@ -30,24 +30,38 @@ exports.editProduct = (req, res, next) => {
 
 exports.saveProduct = (req, res, next) => {
   const { id, title, description, image, price } = req.body;
-  const product = new Product(
-    title,
-    description,
-    image,
-    price,
-    id,
-    req.user._id
-  );
 
-  product
-    .save()
-    .then(() => res.redirect("/admin/products"))
-    .catch((err) => console.log("product creating error", err));
+  if (id) {
+    Product.findById(id)
+      .then((product) => {
+        product.title = title;
+        product.description = description;
+        product.image = image;
+        product.price = price;
+
+        return product.save();
+      })
+      .then(() => res.redirect("/admin/products"))
+      .catch((err) => console.log("product editing error", err));
+  } else {
+    const product = new Product({
+      title,
+      description,
+      image,
+      price,
+      userId: req.user._id,
+    });
+
+    product
+      .save()
+      .then(() => res.redirect("/admin/products"))
+      .catch((err) => console.log("product creating error", err));
+  }
 };
 
 exports.deleteProduct = (req, res, next) => {
   const id = req.params.id;
-  Product.deleteById(id)
+  Product.findByIdAndDelete(id)
     .then(() => res.redirect("/admin/products"))
     .catch((err) => console.log("Error while deleting product", err));
 };
