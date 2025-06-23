@@ -1,0 +1,33 @@
+<%- include('../includes/start.ejs') %>
+<link rel="stylesheet" href="/css/login.css">
+</head>
+<%- include('../includes/navigation.ejs') %>
+<main>
+  <div class="login-container">
+    <h2>Login</h2>
+    <h3>Access your account</h3>
+
+    <% if (error) { %>
+      <div class="login-error"><%= error %></div>
+    <% } %>
+
+    <form action="/login" method="POST" class="login-form">
+      <label>
+        Email:
+        <input type="email" name="email" required />
+      </label>
+      <label>
+        Password:
+        <input type="password" name="password" required />
+      </label>
+
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+
+    <div class="login-footer">
+      <p>Don't have an account? <a href="/register">Register</a></p>
+    </div>
+  </div>
+</main>
+</body>
+</html>

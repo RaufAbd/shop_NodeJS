@@ -1,7 +1,7 @@
 <header class="header">
   <div class="logo">ShopZone</div>
   <ul class="nav-links">
-    <li>
+    <!-- <li>
       <a
         href="/admin/products"
         class="<%= url === '/admin/products'? 'active' : '' %>"
@@ -14,7 +14,8 @@
         class="<%= url === '/admin/products/add'? 'active' : '' %>"
         >Add Product</a
       >
-    </li>
+    </li> -->
+    <% if(url !== '/login'){ %>
     <li>
       <a href="/products" class="<%= url === '/products'? 'active' : '' %>"
         >Products</a
@@ -28,5 +29,11 @@
         >Orders</a
       >
     </li>
+    <li>
+      <a href="/login" style="background-color: orange; margin-left: 4rem"
+        >Login</a
+      >
+    </li>
+    <% } else {%> <% } %>
   </ul>
 </header>
