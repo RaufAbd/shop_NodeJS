@@ -6,6 +6,7 @@ exports.allProducts = (req, res, next) => {
       pageTitle: "Admin products",
       products,
       url: "/admin/products",
+      isAuthenticated: req.session.isLoggedIn,
     });
   });
 };
@@ -14,6 +15,7 @@ exports.addProduct = (req, res, next) => {
   res.render("admin/add-product", {
     pageTitle: "Add product",
     url: "/admin/products/add",
+    isAuthenticated: req.session.isLoggedIn,
   });
 };
 
@@ -24,6 +26,7 @@ exports.editProduct = (req, res, next) => {
       pageTitle: "Edit product",
       product: product,
       url: "/admin/products",
+      isAuthenticated: req.session.isLoggedIn,
     });
   });
 };

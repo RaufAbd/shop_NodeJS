@@ -1,7 +1,13 @@
 <header class="header">
   <div class="logo">ShopZone</div>
   <ul class="nav-links">
-    <!-- <li>
+    <li>
+      <a href="/products" class="<%= url === '/products'? 'active' : '' %>"
+        >Products</a
+      >
+    </li>
+    <% if(isAuthenticated){ %>
+    <li>
       <a
         href="/admin/products"
         class="<%= url === '/admin/products'? 'active' : '' %>"
@@ -14,13 +20,8 @@
         class="<%= url === '/admin/products/add'? 'active' : '' %>"
         >Add Product</a
       >
-    </li> -->
-    <% if(url !== '/login'){ %>
-    <li>
-      <a href="/products" class="<%= url === '/products'? 'active' : '' %>"
-        >Products</a
-      >
     </li>
+
     <li>
       <a href="/cart" class="<%= url === '/cart'? 'active' : '' %>">Cart</a>
     </li>
@@ -30,10 +31,21 @@
       >
     </li>
     <li>
+      <form action="/logout" method="POST">
+        <button
+          class="navigation"
+          style="background-color: rgb(180, 161, 126); margin-left: 4rem"
+        >
+          Logout
+        </button>
+      </form>
+    </li>
+    <% } else {%>
+    <li>
       <a href="/login" style="background-color: orange; margin-left: 4rem"
         >Login</a
       >
     </li>
-    <% } else {%> <% } %>
+    <% } %>
   </ul>
 </header>

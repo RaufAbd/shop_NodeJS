@@ -22,8 +22,9 @@
                     </p>
                     <p class="product-price">$<%= product.price %></p>
                     <div class="buttons">
+                      <% if(isAuthenticated) {%>
                   <%- include('../includes/add-to-cart.ejs', {product})  %>
-                    
+                    <% } %>
                       <a href="/products/<%= product._id %>">
                         <button class="btn details">
                           Details

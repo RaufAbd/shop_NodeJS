@@ -14,8 +14,10 @@
             <p class="product-description"><%= product.description %></p>
             <p class="product-price">$<%= product.price %></p>
             <div class="buttons">
+                <% if(isAuthenticated) {%>
                 <%- include('../includes/add-to-cart.ejs', {product})  %>
                 <button class="btn buy-now">Buy Now</button>
+                <% } %>
             </div>
         </div>
     </div>
