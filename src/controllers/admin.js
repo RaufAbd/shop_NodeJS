@@ -1,12 +1,11 @@
 const Product = require("../models/product");
 
 exports.allProducts = (req, res, next) => {
-  Product.find().then((products) => {
+  Product.find({ userId: req.user._id }).then((products) => {
     res.render("admin/products", {
       pageTitle: "Admin products",
       products,
       url: "/admin/products",
-      isAuthenticated: req.session.isLoggedIn,
     });
   });
 };
@@ -15,7 +14,6 @@ exports.addProduct = (req, res, next) => {
   res.render("admin/add-product", {
     pageTitle: "Add product",
     url: "/admin/products/add",
-    isAuthenticated: req.session.isLoggedIn,
   });
 };
 
@@ -26,7 +24,6 @@ exports.editProduct = (req, res, next) => {
       pageTitle: "Edit product",
       product: product,
       url: "/admin/products",
-      isAuthenticated: req.session.isLoggedIn,
     });
   });
 };
@@ -37,14 +34,18 @@ exports.saveProduct = (req, res, next) => {
   if (id) {
     Product.findById(id)
       .then((product) => {
+        if (product.userId.toString() !== req.user._id.toString()) {
+          return res.redirect("/");
+        }
+
         product.title = title;
         product.description = description;
         product.image = image;
         product.price = price;
 
-        return product.save();
+        return product.save().then(() => res.redirect("/admin/products"));
       })
-      .then(() => res.redirect("/admin/products"))
+
       .catch((err) => console.log("product editing error", err));
   } else {
     const product = new Product({
@@ -64,7 +65,7 @@ exports.saveProduct = (req, res, next) => {
 
 exports.deleteProduct = (req, res, next) => {
   const id = req.params.id;
-  Product.findByIdAndDelete(id)
+  Product.deleteOne({ _id: id, userId: req.user._id })
     .then(() => res.redirect("/admin/products"))
     .catch((err) => console.log("Error while deleting product", err));
 };

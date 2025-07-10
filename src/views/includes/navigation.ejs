@@ -32,6 +32,7 @@
     </li>
     <li>
       <form action="/logout" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         <button
           class="navigation"
           style="background-color: rgb(180, 161, 126); margin-left: 4rem"
@@ -42,8 +43,13 @@
     </li>
     <% } else {%>
     <li>
-      <a href="/login" style="background-color: orange; margin-left: 4rem"
+      <a href="/login" style="background-color: #0080ff; margin-left: 4rem"
         >Login</a
+      >
+    </li>
+    <li>
+      <a href="/signup" style="background-color: #0080ff; margin-left: 0.5rem"
+        >Signup</a
       >
     </li>
     <% } %>

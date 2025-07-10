@@ -57,7 +57,7 @@
         <div class="checkout-container">
             <p class="total-price">Total: $<%= cart.totalPrice %></p>
             <form action="/cart/checkout" method="POST">
-
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <button type="submit" class="checkout-btn">Proceed to Checkout</button>
             </form>
         </div>

@@ -26,6 +26,7 @@
             </div>
 
             <input type="hidden" name="id" value="<%= product._id %>">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <button type="submit" class="submit-btn">Submit Product</button>
         </form>
     </div>

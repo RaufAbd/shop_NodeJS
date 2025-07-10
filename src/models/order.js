@@ -10,7 +10,7 @@ const orderShema = new Shema({
     },
   ],
   user: {
-    name: { type: String, required: true },
+    email: { type: String, required: true },
     userId: {
       type: Shema.Types.ObjectId,
       required: true,

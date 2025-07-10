@@ -3,11 +3,13 @@ const mongoose = require("mongoose");
 const Shema = mongoose.Schema;
 
 const userShema = new Shema({
-  name: {
+  email: {
     type: String,
     required: true,
   },
-  email: {
+  resetToken: String,
+  resetTokenExpiration: Date,
+  password: {
     type: String,
     required: true,
   },

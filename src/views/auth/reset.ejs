@@ -4,31 +4,24 @@
 <%- include('../includes/navigation.ejs') %>
 <main>
   <div class="login-container">
-    <h2>Login</h2>
-    <h3>Access your account</h3>
+    <h2>Reset Password</h2>
+    <h3>Enter your email</h3>
 
     <% if (errorMessage) { %>
       <div class="login-error"><%= errorMessage %></div>
     <% } %>
 
-    <form action="/login" method="POST" class="login-form">
+    <form action="/reset" method="POST" class="login-form">
       <label>
         Email:
         <input type="email" name="email" required />
       </label>
-      <label>
-        Password:
-        <input type="password" name="password" required />
-      </label>
       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-      <button type="submit" class="login-btn">Login</button>
+      <button type="submit" class="login-btn">Reset Password</button>
     </form>
 
     <div class="login-footer">
-      <p>Forgot password? <a href="/reset">Reset</a></p>
-    </div>
-    <div class="login-footer">
-      <p>Don't have an account? <a href="/signup">Signup</a></p>
+      <p>Don't have an account? <a href="/signup">Register</a></p>
     </div>
   </div>
 </main>

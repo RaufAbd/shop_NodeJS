@@ -55,9 +55,9 @@
       <!-- Summary -->
       <div class="checkout-summary">
         <span class="total-label">Total:</span>
-        <span class="total-amount">$<%= 'total.toFixed(2)' %></span>
+        <span class="total-amount">$<%= 'total.toFixed(2)'%></span>
       </div>
-
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
       <button type="submit" class="checkout-btn">Place Order</button>
     </form>
   </div>
