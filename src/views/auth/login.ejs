@@ -11,16 +11,21 @@
       <div class="login-error"><%= errorMessage %></div>
     <% } %>
 
-    <form action="/login" method="POST" class="login-form">
+    <form action="/login" method="POST" class="login-form" novalidate>
       <label>
         Email:
-        <input type="email" name="email" required />
+        <input 
+        class="<%= validationErrors.find(e => e.path === 'email') ? 'invalid':'' %>"
+        type="email" name="email" required value="<%= prevInput.email %>"/>
       </label>
       <label>
         Password:
-        <input type="password" name="password" required />
+        <input 
+        class="<%= validationErrors.find(e => e.path === 'password') ? 'invalid':'' %>"
+        type="password" name="password" required value="<%= prevInput.password %>"/>
       </label>
-      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <input
+       type="hidden" name="_csrf" value="<%= csrfToken %>">
       <button type="submit" class="login-btn">Login</button>
     </form>
 

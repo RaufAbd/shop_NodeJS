@@ -41,17 +41,18 @@
         </button>
       </form>
     </li>
-    <% } else {%>
+    <% } else {%> <% if(url !== '/login'){ %>
     <li>
-      <a href="/login" style="background-color: #0080ff; margin-left: 4rem"
+      <a href="/login" style="background-color: #0080ff; margin-left: 0.5rem"
         >Login</a
       >
     </li>
+    <% } %> <% if(url !== '/signup'){ %>
     <li>
       <a href="/signup" style="background-color: #0080ff; margin-left: 0.5rem"
         >Signup</a
       >
     </li>
-    <% } %>
+    <% } %> <% } %>
   </ul>
 </header>

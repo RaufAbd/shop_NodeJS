@@ -36,6 +36,17 @@
   height: 80px;
 }
 
+.login-error {
+  text-align: center;
+  color: #e74c3c;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.form-group input.invalid {
+  border-color: #e74c3c;
+}
+
 .submit-btn {
   width: 100%;
   background-color: #27ae60;
