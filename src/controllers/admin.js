@@ -68,7 +68,11 @@ exports.saveProduct = (req, res, next) => {
         return product.save().then(() => res.redirect("/admin/products"));
       })
 
-      .catch((err) => console.log("product editing error", err));
+      .catch((err) => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+      });
   } else {
     if (!errors.isEmpty()) {
       return res.status(422).render("admin/add-product", {
@@ -96,7 +100,11 @@ exports.saveProduct = (req, res, next) => {
     product
       .save()
       .then(() => res.redirect("/admin/products"))
-      .catch((err) => console.log("product creating error", err));
+      .catch((err) => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+      });
   }
 };
 
@@ -104,5 +112,9 @@ exports.deleteProduct = (req, res, next) => {
   const id = req.params.id;
   Product.deleteOne({ _id: id, userId: req.user._id })
     .then(() => res.redirect("/admin/products"))
-    .catch((err) => console.log("Error while deleting product", err));
+    .catch((err) => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };
