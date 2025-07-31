@@ -1,3 +1,5 @@
+const fileHelper = require("../utils/file");
+
 const { validationResult } = require("express-validator");
 const Product = require("../models/product");
 
@@ -32,7 +34,7 @@ exports.editProduct = (req, res, next) => {
     res.render("admin/edit-product", {
       pageTitle: "Edit product",
       product: product,
-      url: "/admin/products",
+      url: `/admin/products/edit${id}`,
       errorMessage: "",
       validationErrors: [],
     });
@@ -40,10 +42,21 @@ exports.editProduct = (req, res, next) => {
 };
 
 exports.saveProduct = (req, res, next) => {
-  const { id, title, description, image, price } = req.body;
+  const { id, title, description, price } = req.body;
+  const image = req.file;
   const errors = validationResult(req);
 
   if (id) {
+    if (!image) {
+      return res.status(422).render("admin/edit-product", {
+        pageTitle: "Edit product",
+        product: { title, description, price, _id: id },
+        url: `/admin/products/edit${id}`,
+        errorMessage: "Attached file is not image.",
+        validationErrors: [],
+      });
+    }
+
     Product.findById(id)
       .then((product) => {
         if (product.userId.toString() !== req.user._id.toString()) {
@@ -54,7 +67,7 @@ exports.saveProduct = (req, res, next) => {
           return res.status(422).render("admin/edit-product", {
             pageTitle: "Edit product",
             product: product,
-            url: "/admin/products",
+            url: `/admin/products/edit${id}`,
             errorMessage: errors.array()[0].msg,
             validationErrors: errors.array(),
           });
@@ -62,18 +75,30 @@ exports.saveProduct = (req, res, next) => {
 
         product.title = title;
         product.description = description;
-        product.image = image;
+        if (image) {
+          fileHelper.deleteFile(product.image);
+          product.image = image.path;
+        }
         product.price = price;
 
         return product.save().then(() => res.redirect("/admin/products"));
       })
-
       .catch((err) => {
         const error = new Error(err);
         error.httpStatusCode = 500;
         return next(error);
       });
   } else {
+    if (!image) {
+      return res.status(422).render("admin/add-product", {
+        pageTitle: "Add product",
+        prevInput: { title, description, price },
+        url: "/admin/products/add",
+        errorMessage: "Attached file is not image.",
+        validationErrors: [],
+      });
+    }
+
     if (!errors.isEmpty()) {
       return res.status(422).render("admin/add-product", {
         pageTitle: "Add product",
@@ -83,7 +108,6 @@ exports.saveProduct = (req, res, next) => {
         prevInput: {
           title,
           description,
-          image,
           price,
         },
       });
@@ -92,7 +116,7 @@ exports.saveProduct = (req, res, next) => {
     const product = new Product({
       title,
       description,
-      image,
+      image: image.path,
       price,
       userId: req.user._id,
     });
@@ -110,7 +134,14 @@ exports.saveProduct = (req, res, next) => {
 
 exports.deleteProduct = (req, res, next) => {
   const id = req.params.id;
-  Product.deleteOne({ _id: id, userId: req.user._id })
+  Product.findById(id)
+    .then((product) => {
+      if (!product) {
+        return next(new Error("Product not found."));
+      }
+      fileHelper.deleteFile(product.image);
+      return Product.deleteOne({ _id: id, userId: req.user._id });
+    })
     .then(() => res.redirect("/admin/products"))
     .catch((err) => {
       const error = new Error(err);

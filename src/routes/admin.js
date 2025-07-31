@@ -19,7 +19,6 @@ router.post(
   `${API}/save`,
   [
     body("title").isString().isLength({ min: 3 }).trim(),
-    body("image").isURL(),
     body("description").isLength({ min: 3, max: 400 }).trim(),
     body("price").isFloat(),
   ],
