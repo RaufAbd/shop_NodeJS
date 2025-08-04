@@ -58,7 +58,7 @@ exports.getCartItems = (req, res, next) => {
       res.render("shop/cart", {
         pageTitle: "Your Cart",
         cart: products,
-        totalPrice,
+        totalPrice: totalPrice.toFixed(2),
         url: "/cart",
       });
     })
@@ -117,11 +117,29 @@ exports.removeFromCart = (req, res, next) => {
 };
 
 exports.checkout = (req, res, next) => {
-  res.render("shop/checkout", {
-    pageTitle: "Your Orders",
-    userInfo: req.user,
-    url: "/cart/checkout",
-  });
+  let products;
+  let total = 0;
+  req.user
+    .populate("cart.items.productId")
+    .then((user) => {
+      products = user.cart.items;
+      products.forEach((p) => {
+        total += p.quantity * p.productId.price;
+      });
+
+      res.render("shop/checkout", {
+        pageTitle: "Your Orders",
+        userInfo: req.user,
+        url: "/cart/checkout",
+        products,
+        total: total.toFixed(2),
+      });
+    })
+    .catch((err) => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };
 
 exports.postOrder = (req, res, next) => {
@@ -137,7 +155,7 @@ exports.postOrder = (req, res, next) => {
           email: req.user.email,
           userId: req.user,
         },
-        products: products,
+        products,
       });
 
       return order.save();
