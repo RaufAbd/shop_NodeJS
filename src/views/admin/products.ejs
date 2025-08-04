@@ -40,6 +40,8 @@
                 </li>
               <% } %>
             </ul>
+            
+             <%- include('../includes/pagination.ejs', {totalPages, currentPage})  %>
 
             <% } else { %>
             <h3>No products found, please add product!</h3>

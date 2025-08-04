@@ -3,14 +3,27 @@ const fileHelper = require("../utils/file");
 const { validationResult } = require("express-validator");
 const Product = require("../models/product");
 
+const ITEMS_PER_PAGE = 2;
+
 exports.allProducts = (req, res, next) => {
-  Product.find({ userId: req.user._id }).then((products) => {
-    res.render("admin/products", {
-      pageTitle: "Admin products",
-      products,
-      url: "/admin/products",
+  const currentPage = +req.query.page || 1;
+  let totalPages = 0;
+  Product.countDocuments({ userId: req.user._id })
+    .then((totalItems) => {
+      totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+      return Product.find({ userId: req.user._id })
+        .skip((currentPage - 1) * ITEMS_PER_PAGE)
+        .limit(ITEMS_PER_PAGE);
+    })
+    .then((products) => {
+      res.render("admin/products", {
+        pageTitle: "Admin products",
+        products,
+        url: "/admin/products",
+        totalPages,
+        currentPage,
+      });
     });
-  });
 };
 
 exports.addProduct = (req, res, next) => {
